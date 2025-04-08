@@ -1,90 +1,78 @@
 import java.util.Objects;
 
 public class Worker {
+    private int ID;
+    private String FullName;
+    private String Phone;
+    private String Username;
+    private String Password;
 
-    private String firstName, lastName, userName, phoneNum, password;
-    private int id;
-
-
-    public Worker(String firstName, String lastName, String userName, String phoneNum, String password, int id) {
-    setId(id);
-    setFirstName(firstName);
-    setLastName(lastName);
-    setUserName(userName);
-    setPassword(password);
-    setPhoneNum(phoneNum);
+    public Worker(int ID, String fullName, String phone, String username, String password) {
+        setID(ID);
+        setFullName(fullName);
+        setPhone(phone);
+        setUsername(username);
+        setPassword(password);
     }
 
-    public Worker(String firstName, String lastName, String userName, String password, int id){
-        this(firstName, lastName, userName,null , password, id);
+    public Worker(int ID, String fullName, String username, String password) {
+        this(ID,fullName,null,username,password);
     }
 
-    public String getFirstName() {
-        return firstName;
+    public int getID() {
+        return ID;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFullName() {
+        return FullName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String fullName) {
+        FullName = fullName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getPhone() {
+        return Phone;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setPhone(String phone) {
+        Phone = phone;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setUsername(String username) {
+        Username = username;
     }
 
     public String getPassword() {
-        return password;
+        return Password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        Password = password;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Worker{" + "FullName=" + FullName + " ,ID=" + ID +'}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Worker worker = (Worker) o;
-        return id == worker.id;
+        return ID == worker.ID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Worker{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", id=" + id +
-                '}';
+        return Objects.hashCode(ID);
     }
 }

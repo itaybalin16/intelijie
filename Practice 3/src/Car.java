@@ -1,97 +1,84 @@
+
 import java.util.Objects;
-
 public class Car {
-    private String manufactor, model, color, licenseNum;
-    private boolean isHandicapped;
-    private int date, manufactureYear;
+    private String Brand;
+    private String Model;
+    private String Color;
+    private int Year;
+    private String PlateNumber;
+    private boolean IsHandicapped;
 
-    public Car(String manufactor, String model, String color, String licenseNum, boolean isHandicapped, int date, int manufactureYear) {
-        setManufactor(manufactor);
+    public Car(String brand, String model, String color, int year, String plateNumber, boolean isHandicapped) {
+        setBrand(brand);
         setModel(model);
         setColor(color);
-        setLicenseNum(licenseNum);
+        setYear(year);
+        setPlateNumber(plateNumber);
         setHandicapped(isHandicapped);
-        setDate(date);
-        setManufactureYear(manufactureYear);
     }
 
+    public String getBrand() {
+        return Brand;
+    }
+
+    public void setBrand(String brand) {
+        Brand = brand;
+    }
 
     public String getModel() {
-        return model;
+        return Model;
     }
 
     public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getManufactor() {
-        return manufactor;
-    }
-
-    public void setManufactor(String manufactor) {
-        this.manufactor = manufactor;
+        Model = model;
     }
 
     public String getColor() {
-        return color;
+        return Color;
     }
 
     public void setColor(String color) {
-        this.color = color;
+        Color = color;
+    }
+
+    public int getYear() {
+        return Year;
+    }
+
+    public void setYear(int year) {
+        Year = year;
+    }
+
+    public String getPlateNumber() {
+        return PlateNumber;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        PlateNumber = plateNumber;
     }
 
     public boolean isHandicapped() {
-        return isHandicapped;
+        return IsHandicapped;
     }
 
     public void setHandicapped(boolean handicapped) {
-        this.isHandicapped = handicapped;
-    }
-
-    public String getLicenseNum() {
-        return licenseNum;
-    }
-
-    public void setLicenseNum(String licenseNum) {
-        this.licenseNum = licenseNum;
-    }
-
-    public int getDate() {
-        return date;
-    }
-
-    public void setDate(int date) {
-        this.date = date;
-    }
-
-    public int getManufactureYear() {
-        return manufactureYear;
-    }
-
-    public void setManufactureYear(int manufactureYear) {
-        this.manufactureYear = manufactureYear;
+        IsHandicapped = handicapped;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return Objects.equals(licenseNum, car.licenseNum);
+        return Objects.equals(PlateNumber, car.PlateNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(licenseNum);
+        return Objects.hashCode(PlateNumber);
     }
 
     @Override
     public String toString() {
-        return "Car{" +
-                "manufactor='" + manufactor + '\'' +
-                ", model='" + model + '\'' +
-                ", color='" + color + '\'' +
-                '}';
+        return "Car{"+"Brand='" + Brand +"model="+ Model + "PlateNumber='" + PlateNumber + '}';
     }
-
-
 }
