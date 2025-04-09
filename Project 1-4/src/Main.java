@@ -4,79 +4,120 @@ import java.util.Scanner;
 //Yiska Malka
 public class Main {
     public static void main(String[] args) {
-    boolean keepRunning = true;
-    String[] teachers = new String[1];
-    int sizeT = 0;
-    String[] committee = new String[1];
-    int sizeC = 0;
-    String[] faculty = new String[1];
-    int sizeF = 0;
-    Scanner scn = new Scanner(System.in);
+        boolean keepRunning = true;
+        String[] teachers = new String[1];
+        int numOfT = 0;
+        String[] committee = new String[1];
+        int numOfC = 0;
+        String[] faculty = new String[1];
+        int numOfF = 0;
+        Scanner scn = new Scanner(System.in);
 
-        while (keepRunning){
+        while (keepRunning) {
             menuPrint();
-            int num = 0;
-            num = scn.nextInt();
-//            switch (num)
-            if(num == 0){
-                System.out.println("the program is dead. bye!");
+            int num = scn.nextInt();
+
+            if (num == 0) {
+                System.out.println("You choose 0 -the program is dead. bye!");
                 keepRunning = false;
             }
             if (num == 1) {
-                System.out.println("Please enter a teacher to add: ");
-                String name = getName();
-                addToArr(teachers, sizeT, name);
-                sizeT++;
+                addToArr(teachers, numOfT);
+                numOfT++;
             }
             if (num == 2) {
-                System.out.println("Please enter a committee to add: ");
-                String name = getName();
-                addToArr(committee, sizeC, name);
-                sizeC++;
+                addToArr(committee, numOfC);
+                numOfC++;
             }
             if (num == 3) {
-                System.out.println("Please enter a faculty to add: ");
-                String name = getName();
-                addToArr(faculty, sizeF, name);
-                sizeF++;
+                addToArr(faculty, numOfF);
+                numOfF++;
             }
-            if (num == 4){
-                String nameT = getName();
-                String nameC = getName();
+            if (num == 4) {
+                String nameT = getName(teachers);
+                String nameC = getName(committee);
                 boolean checkT = checkNameInArr(nameT, teachers);
                 boolean checkC = checkNameInArr(nameC, committee);
-                if (checkC){
+                if (checkC) {
                     System.out.println("no such teacher.");
                 }
-                if (checkT){
+                if (checkT) {
                     System.out.println("no such committee.");
                 }
-
             }
+            if (num == 5) {
+                System.out.println("to be added");
+            }
+            if (num == 6) {
+                System.out.println("to be added");
+            }
+            if (num == 7) {
+                printArr(teachers, numOfT);
+            }
+            if (num == 8) {
+                printArr(committee, numOfC);
+            }
+            num = scn.nextInt();
+//            if (num != int){
+//                System.out.println("Invalid input");
+//                break;
+//            }
+//            switch (num){
+//                case 0:
+//                    System.out.println("You choose 0 -the program is dead. bye!");
+//                    keepRunning = false;
+//                    break;
+//                case 1:
+//
+//                case 2:
+//
+//                case 3:
+//                case 4:
+//                case 5:
+//                case 6:
+//                case 7:
+//                case 8:
         }
     }
-    private static String getName(){
+
+    private static void printArr(String[] arr, int numOf) {
+        if (numOf == 0) {
+            System.out.println("No names to print");
+            return;
+        }
+        for (int i = 0; i < numOf; i++) {
+            System.out.println(arr[i]);
+        }
+    }
+
+    private static void addToArr(String[] arr, int numOfThings) {
+//        System.out.println("Please enter a teacher to add: ");
+        String name = getName(arr);
+//        boolean nameInArr = checkNameInArr(name, arr);
+//        while (!nameInArr){
+//            System.out.println("name already in arry, try again: ");
+//            name = getName();
+//            nameInArr = checkNameInArr(name, arr);
+//        }
+        if (numOfThings == arr.length) {
+            arr = makeArrBigger(arr);
+        }
+        arr[numOfThings] = name;
+        System.out.println(name + " is added to arr! :)");
+    }
+
+    private static String getName(String[] arr) {
         Scanner scn = new Scanner(System.in);
-        String name = scn.nextLine();
+        String name;
+        System.out.println("Please enter a name to add: ");
+        for (name = scn.nextLine(); !checkNameInArr(name, arr); name = scn.nextLine()) {
+            System.out.println("Name is already in arr, pick again: ");
+        }
         return name;
     }
 
-    private static void addToArr(String[] arr, int size, String name) {
-        boolean nameInArr = checkNameInArr(name, arr);
-        while (!nameInArr){
-            System.out.println("name already in arry, try again: ");
-            name = getName();
-            nameInArr = checkNameInArr(name, arr);
-        }
-        if(size == arr.length){
-            arr = makeArrBigger(arr);
-        }
-        arr[size] = name;
-        System.out.println("Name added to arr! :)");
-    }
-
     private static boolean checkNameInArr(String name, String[] arr) {
-        for (int i = 0; i < arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             if (arr[i] != null && name.equals(arr[i])) {
                 return false;
             }
@@ -85,11 +126,11 @@ public class Main {
     }
 
     private static String[] makeArrBigger(String[] oldArr) {
-        String[] newArr = new String[oldArr.length*2];
-        for (int i = 0; i < oldArr.length; i++){
+        String[] newArr = new String[oldArr.length * 2];
+        for (int i = 0; i < oldArr.length; i++) {
             newArr[i] = oldArr[i];
         }
-        System.out.println("Arry was too small. now is 2x bigger!");
+        System.out.println("Arry was too small. now is 2x bigger! new size is: " + newArr.length);
         return newArr;
     }
 
@@ -109,7 +150,6 @@ public class Main {
         System.out.println("choose a number, pick 0 to exit");
     }
 }
-
 //        import java.util.Scanner;
 //
 //        public class Menu {
