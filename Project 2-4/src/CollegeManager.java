@@ -70,12 +70,22 @@ public class CollegeManager {
         int numStudents = sc.nextInt();
         sc.nextLine();
 
-        Department d = new Department(name, numStudents);
+        System.out.println("Enter num of teachers teaching:");
+        int numOfTeachers = sc.nextInt();
+        sc.nextLine();
+        Teacher[] teacher = new Teacher[numOfTeachers];
+
+        Department d = new Department(name, numStudents, teachers);
 
         return d;
     }
-    public void addDepartment() {
 
+    public void addDepartment() {
+        Department d = createNewDepartment();
+
+        if (numOfD == departments.length){
+            departments = extendArrDepartment(departments);
+        }
 
         departments[numOfD++] = d;
 
@@ -96,25 +106,33 @@ public class CollegeManager {
     }
 
 
-    public void addToArr(String[] arr, int numOfThings) {
-        String name = getName(arr);
-        if (numOfThings == arr.length) {
-            arr = extendArr(arr);
-        }
-        arr[numOfThings] = name;
-        System.out.println(name + " is added to arr! :)");
-    }
+//    public void addToArr(String[] arr, int numOfThings) {
+//        String name = getName(arr);
+//        if (numOfThings == arr.length) {
+//            arr = extendArr(arr);
+//        }
+//        arr[numOfThings] = name;
+//        System.out.println(name + " is added to arr! :)");
+//    }
 
-    private  String getName(String[] arr) {
-        Scanner scn = new Scanner(System.in);
-        String name;
-        System.out.println("Please enter a name to add: ");
-        for (name = scn.nextLine(); !checkNameInArr(name, arr); name = scn.nextLine()) {
-            System.out.println("Name is already in arr, pick again: ");
-        }
-        return name;
-    }
+//    private  String getName(String[] arr) {
+//        Scanner scn = new Scanner(System.in);
+//        String name;
+//        System.out.println("Please enter a name to add: ");
+//        for (name = scn.nextLine(); !checkNameInArr(name, arr); name = scn.nextLine()) {
+//            System.out.println("Name is already in arr, pick again: ");
+//        }
+//        return name;
+//    }
 
+    private boolean checkIfTeacher(String name, Teacher[] arr, int numOfT){
+        for (int i = 0; i < numOfT; i++) {
+            if (name.equals(arr[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
     private  boolean checkNameInArr(String name, String[] arr) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] != null && name.equals(arr[i])) {
