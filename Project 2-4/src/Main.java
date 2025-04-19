@@ -8,32 +8,117 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         CollegeManager manager = new CollegeManager();
 
-
         while (keepRunning) {
             menuPrint();
             int num = scn.nextInt();
+            scn.nextLine();
             switch (num) {
                 case 0:
                     System.out.println("You choose 0 - the program is dead. bye!");
                     keepRunning = false;
                     break;
                 case 1:
-                    System.out.println("You choose 1 -  adding a teacher");
-                    manager.addTeacher();
+                    System.out.println("You choose 1 - adding a teacher");
+
+                    System.out.println("Enter ID:");
+                    String id = scn.nextLine();
+
+                    while (manager.checkIfTeacherInArr(id)){
+                        System.out.println("teacher already exists, try again!");
+                        id = scn.nextLine();
+                    }
+
+                    System.out.println("Enter teacher's full name:");
+                    String teacherName = scn.nextLine();
+
+                    System.out.println("Enter degree (NONE / BSC / MSC / DR / PROF:");
+//                    String degree = scn.nextLine().toUpperCase();
+                    Teacher.AcademicRank degree = Teacher.AcademicRank.DR;
+//                    להבין איך אני משתמש בזה עם SWITCH
+
+                    System.out.println("Enter degree name:");
+                    String degreeName = scn.nextLine();
+
+                    System.out.println("Enter salary:");
+                    int salary = scn.nextInt();
+                    scn.nextLine();
+
+                    System.out.println("Enter department name (if has one):");
+                    String department = scn.nextLine();
+
+                    manager.addTeacher(teacherName, id, degree, degreeName, salary, department);
+                    break;
                 case 2:
                     System.out.println("You choose 2 - adding a committee");
-                    manager.addCommittee();
+
+                    System.out.println("Enter chairman id: "); //לעשות השוואה של תז
+                    String chairmanID = scn.nextLine();
+
+                    while (manager.checkChairman(chairmanID)){
+                        System.out.println("Future chairman isn't a good fit, try again!");
+                        chairmanID = scn.nextLine();
+                    }
+
+                    Teacher chairman =  manager.getTeacher(chairmanID);
+
+                    System.out.println("Enter committee name: ");
+                    String committeeName = scn.nextLine();
+
+
+                    System.out.println("Enter number of teachers in committee: ");
+                    int numOfTeachersC = scn.nextInt();
+                    System.out.println();
+
+                    Teacher[] teachers = new Teacher[numOfTeachersC];
+
+                    manager.addCommittee(chairman, committeeName, teachers);
+                    break;
                 case 3:
+                    System.out.println("You choose 3 - adding a member to a committee");
+                    break;
                 case 4:
+                    System.out.println("You choose 4 - updating the chairman");
+                    break;
+
                 case 5:
+                    System.out.println("You choose 5 - removing a member from a committee");
+                    break;
+
                 case 6:
                     System.out.println("You choose 6 - adding a department");
-                    manager.addDepartment();
-                case 7:
-                case 8:
-                case 9:
-                case 10:
 
+                    System.out.println("Enter department name:");
+                    String departmentName = scn.nextLine();
+
+                    while(manager.checkIfDepartmentExist(departmentName)){
+                        System.out.println("department already exists, try again!");
+                        departmentName = scn.nextLine();
+                    }
+
+                    System.out.println("Enter number of students:");
+                    int numStudents = scn.nextInt();
+                    scn.nextLine();
+
+                    System.out.println("Enter num of teachers teaching:");
+                    int numOfTeachersD = scn.nextInt();
+                    scn.nextLine();
+                    Teacher[] teachersInDep = new Teacher[numOfTeachersD];
+
+                    manager.addDepartment(departmentName, numStudents, teachersInDep);
+                    break;
+
+                case 7:
+                    System.out.println("You choose 7 - showing average salaray of all teachers");
+                    break;
+                case 8:
+                    System.out.println("You choose 8 - showing average salary of a specific department");
+                    break;
+                case 9:
+                    System.out.println("You choose 9 - showing details of all teachers");
+                    break;
+                case 10:
+                    System.out.println("You choose 10 - showing all committees");
+                    break;
             }
         }
     }
@@ -44,105 +129,13 @@ public class Main {
         System.out.println("0 - exit");
         System.out.println("1 - add a teacher to the college");
         System.out.println("2 - add committee to the college");
-        System.out.println("5 - add a member to a committee");
-        System.out.println(" - update the committee chairman ");
-        System.out.println(" - remove a member from the committee");
+        System.out.println("3 - add a member to a committee");
+        System.out.println("4 - update the committee chairman ");
+        System.out.println("5 - remove a member from the committee");
         System.out.println("6 - add department");
         System.out.println("7 - show salary average of all teachers");
         System.out.println("8 - show salary average of the teachers in specific department");
         System.out.println("9 - show all teachers details");
         System.out.println("10 - show all committees details");
-        System.out.println("choose a number, pick 0 to exit");
     }
-//            if (num == 0) {
-//                System.out.println("You choose 0 -the program is dead. bye!");
-//                keepRunning = false;
-//            }
-//            if (num == 1) {
-//                manager.addToArr("gil", "efes");
-//                numOfT++;
-//            }
-//            if (num == 2) {
-//                addToArr(committee, numOfC);
-//                numOfC++;
-//            }
-//            if (num == 3) {
-//                addToArr(faculty, numOfF);
-//                numOfF++;
-//            }
-//            if (num == 4) {
-//                String nameT = getName(teachers);
-//                String nameC = getName(committee);
-//                boolean checkT = checkNameInArr(nameT, teachers);
-//                boolean checkC = checkNameInArr(nameC, committee);
-//                if (checkC) {
-//                    System.out.println("no such teacher.");
-//                }
-//                if (checkT) {
-//                    System.out.println("no such committee.");
-//                }
-//            }
-//            if (num == 5) {
-//                System.out.println("to be added");
-//            }
-//            if (num == 6) {
-//                System.out.println("to be added");
-//            }
-//            if (num == 7) {
-//                printArr(teachers, numOfT);
-//            }
-//            if (num == 8) {
-//                printArr(committee, numOfC);
-//            }
-//        }
-//    }
-
-//    private static void printArr(String[] arr, int numOf) {
-//        if (numOf == 0) {
-//            System.out.println("No names to print");
-//            return;
-//        }
-//        for (int i = 0; i < numOf; i++) {
-//            System.out.println(arr[i]);
-//        }
-//    }
-//
-//    private static void addToArr(String[] arr, int numOfThings) {
-//        String name = getName(arr);
-//        if (numOfThings == arr.length) {
-//            arr = makeArrBigger(arr);
-//        }
-//        arr[numOfThings] = name;
-//        System.out.println(name + " is added to arr! :)");
-//    }
-//
-//    private static String getName(String[] arr) {
-//        Scanner scn = new Scanner(System.in);
-//        String name;
-//        System.out.println("Please enter a name to add: ");
-//        for (name = scn.nextLine(); !checkNameInArr(name, arr); name = scn.nextLine()) {
-//            System.out.println("Name is already in arr, pick again: ");
-//        }
-//        return name;
-//    }
-//
-//    private static boolean checkNameInArr(String name, String[] arr) {
-//        for (int i = 0; i < arr.length; i++) {
-//            if (arr[i] != null && name.equals(arr[i])) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-//
-//    private static String[] makeArrBigger(String[] oldArr) {
-//        String[] newArr = new String[oldArr.length * 2];
-//        for (int i = 0; i < oldArr.length; i++) {
-//            newArr[i] = oldArr[i];
-//        }
-//        System.out.println("Arry was too small. now is 2x bigger! new size is: " + newArr.length);
-//        return newArr;
-//    }
-
-
 }

@@ -1,9 +1,11 @@
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Department {
     private String departmentName;
     private int numOfStudent;
     private Teacher[] techersArray;
+
 
     public Department(String departmentName, int numOfStudent, Teacher[] techersArray) {
         this.departmentName = departmentName;
@@ -27,12 +29,24 @@ public class Department {
         this.numOfStudent = numOfStudent;
     }
 
-    public String[] getTechersArray() {
+    public Teacher[] getTechersArray() {
         return techersArray;
     }
 
-    public void setTechersArray(String[] techersArray) {
+    public void setTechersArray(Teacher[] techersArray) {
         this.techersArray = techersArray;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return Objects.equals(departmentName, that.departmentName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(departmentName);
     }
 
     @Override

@@ -1,23 +1,18 @@
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Committee {
     private String committeeName;
-    private String[] teacherCommitteeArr;
-    private String chairmanName;
+    private Teacher[] teacherCommitteeArr;
+    private Teacher chairman;
 
-    public Committee(String chairmanName, String committeeName, String[] teacherCommitteeArr) {
-        this.chairmanName = chairmanName;
+
+
+    public Committee(Teacher chairman, String committeeName, Teacher[] teacherCommitteeArr) {
         this.committeeName = committeeName;
         this.teacherCommitteeArr = teacherCommitteeArr;
     }
 
-    public String getChairmanName() {
-        return chairmanName;
-    }
-
-    public void setChairmanName(String chairmanName) {
-        this.chairmanName = chairmanName;
-    }
 
     public String getCommitteeName() {
         return committeeName;
@@ -27,18 +22,30 @@ public class Committee {
         this.committeeName = committeeName;
     }
 
-    public String[] getTeacherCommitteeArr() {
+    public Teacher[] getTeacherCommitteeArr() {
         return teacherCommitteeArr;
     }
 
-    public void setTeacherCommitteeArr(String[] teacherCommitteeArr) {
+    public void setTeacherCommitteeArr(Teacher[] teacherCommitteeArr) {
         this.teacherCommitteeArr = teacherCommitteeArr;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Committee committee = (Committee) o;
+        return Objects.equals(committeeName, committee.committeeName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(committeeName);
     }
 
     @Override
     public String toString() {
         return "Committee{" +
-                "chairmanName='" + chairmanName + '\'' +
+                "chairmanName='" + chairman + '\'' +
                 ", committeeName='" + committeeName + '\'' +
                 ", teacherCommitteeArr=" + Arrays.toString(teacherCommitteeArr) +
                 '}';

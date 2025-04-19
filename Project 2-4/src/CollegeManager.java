@@ -21,35 +21,8 @@ public class CollegeManager {
         }
     }
 
-    public Teacher createNewTeacher(){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter teacher's full name:");
-        String name = sc.nextLine();
-
-        System.out.println("Enter ID:");
-        String id = sc.nextLine();
-
-        System.out.println("Enter degree (e.g., DR, PROF):");
-        String degree = sc.nextLine();
-
-        System.out.println("Enter degree name:");
-        String degreeName = sc.nextLine();
-
-        System.out.println("Enter salary:");
-        int salary = sc.nextInt();
-        sc.nextLine();
-
-        System.out.println("Enter department name (if has one):");
-        String department = sc.nextLine();
-
+    public void addTeacher(String name, String id, Teacher.AcademicRank degree, String degreeName, int salary, String department) {
         Teacher t = new Teacher(name, id, degree, degreeName, salary, department);
-
-        return t;
-    }
-
-    public void addTeacher() {
-        Teacher t = createNewTeacher();
 
         if (numOfT == teachers.length){
             teachers = extendArrTeachers(teachers);
@@ -60,28 +33,8 @@ public class CollegeManager {
         System.out.println("Teacher added successfully.");
     }
 
-    public Department createNewDepartment(){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter department name:");
-        String name = sc.nextLine();
-
-        System.out.println("Enter number of students:");
-        int numStudents = sc.nextInt();
-        sc.nextLine();
-
-        System.out.println("Enter num of teachers teaching:");
-        int numOfTeachers = sc.nextInt();
-        sc.nextLine();
-        Teacher[] teacher = new Teacher[numOfTeachers];
-
-        Department d = new Department(name, numStudents, teachers);
-
-        return d;
-    }
-
-    public void addDepartment() {
-        Department d = createNewDepartment();
+    public void addDepartment(String depName, int numStudents, Teacher[] teachersInDep) {
+        Department d = new Department(depName, numStudents, teachersInDep);
 
         if (numOfD == departments.length){
             departments = extendArrDepartment(departments);
@@ -92,55 +45,99 @@ public class CollegeManager {
         System.out.println("Department added successfully.");
     }
 
-    public void addCommittee() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter committee name:");
-        String name = sc.nextLine();
-
-        Committee c = new Committee(name);
+    public void addCommittee(Teacher chairman, String committeeName, Teacher[] teachers) {
+        Committee c = new Committee(chairman, committeeName, teachers);
 
         committees[numOfC++] = c;
 
         System.out.println("Committee added successfully.");
     }
 
-
-//    public void addToArr(String[] arr, int numOfThings) {
-//        String name = getName(arr);
-//        if (numOfThings == arr.length) {
-//            arr = extendArr(arr);
-//        }
-//        arr[numOfThings] = name;
-//        System.out.println(name + " is added to arr! :)");
-//    }
-
-//    private  String getName(String[] arr) {
+//    private Committee createCommittee(){
 //        Scanner scn = new Scanner(System.in);
-//        String name;
-//        System.out.println("Please enter a name to add: ");
-//        for (name = scn.nextLine(); !checkNameInArr(name, arr); name = scn.nextLine()) {
-//            System.out.println("Name is already in arr, pick again: ");
+//
+//        System.out.println("Enter chairman name: "); //לעשות השוואה של תז
+//        String chairman;
+//        for (chairman = scn.nextLine(); !checkIfTeacher(chairman, teachers, numOfT); chairman = scn.nextLine()){
+//            System.out.println("Chairman isn't a teacher, try again!");
 //        }
-//        return name;
+//
+//        Teacher t = getTeacher(chairman);
+//
+//        if (t.getRank().ordinal() >= Teacher.AcademicRank.DR.ordinal()){
+//
+//        }
+//
+//
+//
+//        System.out.println("Enter committee name: ");
+//        String name = scn.nextLine();
+//
+//
+//        System.out.println("Enter number of teachers in committee: ");
+//        int numOfTeachers = scn.nextInt();
+//        System.out.println();
+//
+//        Teacher[] teachers = new Teacher[numOfTeachers];
+//
+//        Committee c = new Committee(name, teachers)
+//
 //    }
 
-    private boolean checkIfTeacher(String name, Teacher[] arr, int numOfT){
+
+
+    public Teacher getTeacher(String id){
+        for (int i = 0; i < numOfT ; i++){
+            if (id.equals(teachers[i].getId())){
+                return teachers[i];
+            }
+        }
+        return null;
+    }
+
+    public boolean checkIfTeacherInArr(String id){
         for (int i = 0; i < numOfT; i++) {
-            if (name.equals(arr[i])) {
-                return false;
+            if (id.equals(teachers[i].getId())) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
-    private  boolean checkNameInArr(String name, String[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] != null && name.equals(arr[i])) {
-                return false;
+
+    public boolean checkIfDepartmentExist(String depName){
+        for (int i = 0; i < numOfD ; i++){
+            if (depName.equals(departments[i].getDepartmentName())){
+                return true;
             }
         }
-        return true;
+        return false;
     }
+
+    public boolean checkChairman(String id){
+        boolean ifTeacher = checkIfTeacherInArr(id);
+
+        if (!ifTeacher){
+            return false;
+        }
+
+        Teacher t = getTeacher(id);
+
+        if (t.getDegree().ordinal() < Teacher.AcademicRank.DR.ordinal()){
+            return false;
+        }
+
+        return true;
+
+    }
+
+//    private  boolean checkNameInArr(String name, String[] arr) {
+//        for (int i = 0; i < arr.length; i++) {
+//            if (arr[i] != null && name.equals(arr[i])) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
     private Teacher[] extendArrTeachers(Teacher[] oldArr) {
         Teacher[] newArr = new Teacher[oldArr.length * 2];

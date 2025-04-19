@@ -1,24 +1,33 @@
 import java.util.Objects;
 
 public class Teacher {
+
+    public enum AcademicRank{
+        None,
+        BSC,
+        MSC,
+        DR,
+        PROF,
+    }
+
     private String name;
     private String id;
-    private String degree;
+    private AcademicRank degree;
     private String degreeName;
     private int salary;
     private String department;
 
-    public Teacher(String teacherFullName, String id, String degree, String degreeName, int salary, String department) {
-        this(teacherFullName, id, degree, degreeName, salary);
-        this.department = department;
-    }
-
-    public Teacher(String teacherFullName, String id, String degree, String degreeName, int salary) {
+    public Teacher(String teacherFullName, String id, AcademicRank degree, String degreeName, int salary) {
         this.name = teacherFullName;
         this.id = id;
         this.degree = degree;
         this.degreeName = degreeName;
         this.salary = salary;
+    }
+
+    public Teacher(String teacherFullName, String id, AcademicRank degree, String degreeName, int salary, String department) {
+        this(teacherFullName, id, degree, degreeName, salary);
+        this.department = department;
     }
 
 
@@ -44,6 +53,8 @@ public class Teacher {
                 '}';
     }
 
+
+
     public void setSalary(int salary) {
         salary = salary;
     }
@@ -60,7 +71,7 @@ public class Teacher {
         return name;
     }
 
-    public String getDegree() {
+    public AcademicRank getDegree() {
         return degree;
     }
 
